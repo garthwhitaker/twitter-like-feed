@@ -11,8 +11,6 @@
 
     const utils = require('./../utils/utils');
 
-
-
     /**
      * Class represenating relationships between follower and followed
      */
@@ -149,7 +147,7 @@
         }
 
         /**
-         * This method populates relationships from file response
+         * This method populates relationships from file 
          * @param {fileName} fileName - The name of file containing relationship information
          * @return {Relationship[]} List of relationships
          */

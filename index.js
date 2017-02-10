@@ -23,7 +23,7 @@
     if (argv.users && argv.tweets) {
 
         var relationships = Relationship.populateRelationships(`${argv.users}`);
-          Logger.log("info", `Relationship(s) populated.`);
+        Logger.log("info", `Relationship(s) populated.`);
 
         var tweets = Tweet.populateTweets(`${argv.tweets}`);
         Logger.log("info", `${tweets.length} tweet(s) found.`);
@@ -31,8 +31,8 @@
         var users = Relationship.getUsersFromRelationships(relationships);
         Logger.log("info", `${users.length} user(s) found.`);
 
-        Tweet.printTweets(users, relationships, tweets);
-
+        var allUsersTweets = Tweet.getAllUserTweets(users, relationships, tweets);
+        utils.printTweets(allUsersTweets);
     }
     else {
         console.log('Please enter command in this format \"node index.js --users=filename.txt --tweets=filename.txt\"');

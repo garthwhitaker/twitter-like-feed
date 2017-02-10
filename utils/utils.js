@@ -51,6 +51,29 @@
     }
 
     /**
+     * This prints all user tweets to console
+     * @param {Object} allUserTweets - A key value store for user -> tweets
+     */
+
+    var printTweets = (allUsersTweets) =>{
+         Object.keys(allUsersTweets).forEach((user) => {
+
+            var message = `${user}\n`;
+            Logger.log('info',`Printing tweet(s) for user: ${user}.`);
+            Logger.log('info', `(${allUsersTweets[user].length}) tweet(s) found.`)
+
+            allUsersTweets[user].forEach((tweet) => {
+                message += `\t@${tweet.user}: ${tweet.message}\n\n`;
+            });
+
+            Logger.log('info',`Tweet message(s): \n${message}`);
+
+            console.log(message);
+
+        })
+    }
+
+    /**
      * utils
      * @module utils
      */
@@ -58,7 +81,8 @@
     module.exports = {
         fetch,
         extractTweet,
-        extractRelationship
+        extractRelationship,
+        printTweets
     }
 
 })();
