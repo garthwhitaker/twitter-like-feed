@@ -10,6 +10,7 @@
   "author": "Garth Whitaker",
   "license": "ISC",
   "dependencies": {
+    "jsdoc": "^3.4.3",
     "lodash": "^4.17.4",
     "winston": "^2.3.1",
     "yargs": "^6.6.0"
