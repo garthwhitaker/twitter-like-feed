@@ -1,0 +1,6 @@
+{
+    "DATA_FOLDER_PATH": "./data/",
+    "REGEX_TWEET": "(\\w+)>\\s{1}(.*)",
+    "REGEX_RELATIONSHIP": "(\\w+)\\s{1}follows\\s{1}(.*)",
+    "MAX_TWEET_LENGTH": 140
+}

@@ -1,0 +1,22 @@
+{
+  "name": "twitter-like-feed",
+  "version": "1.0.0",
+  "description": "This program simulates a twitter-like feed",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha tests/*.test.js",
+    "generate-docs": "./node_modules/.bin/jsdoc models/*.js utils/**"
+  },
+  "author": "Garth Whitaker",
+  "license": "ISC",
+  "dependencies": {
+    "lodash": "^4.17.4",
+    "winston": "^2.3.1",
+    "yargs": "^6.6.0"
+  },
+  "devDependencies": {
+    "expect": "^1.20.2",
+    "mocha": "^3.2.0",
+    "mock-fs": "^4.0.0"
+  }
+}

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: models/relationship.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: models/relationship.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>
+/**
+ * @author: Garth Whitaker &lt;garth.whitaker@gmail.com>
+ */
+
+(function () {
+
+    'use strict';
+
+    const utils = require('./../utils/utils');
+    const _ = require('lodash');
+
+    /***
+     * This private method fetches relationship information from file
+     * @param {string} fileName - The name of file containing relationship information
+     * @return {string} The relationships contents from file
+     */
+
+    var fetchRelationships = (fileName) => {
+
+        var relationships = utils.fetch(fileName);
+        return relationships;
+
+    }
+
+    /***
+    * This private method filters out followers from relationships array
+    * @param {Relationship[]} relationships - The list of relationships 
+    * @return {string[]} The names of followers
+    */
+
+    var getFollowersFromRelationships = (relationships) => {
+
+        var followers = relationships.map((relationship) => {
+            return relationship.follower;
+        });
+
+        return followers;
+    }
+
+    /***
+    * This private method filters out followed from relationships array
+    * @param {Relationship[]} relationships - A list of relationships
+    * @return {string[]} The names of those followed 
+    */
+
+    var getFollowedFromRelationships = (relationships) => {
+
+        var followed = relationships.map((relationship) => {
+            return relationship.followed;
+        });
+
+        return followed;
+    }
+
+    /**
+     * Class represenating relationships between follower and followed
+     */
+
+    class Relationship {
+
+        /**
+         * Create a relationship.
+         * @param {string} follower - The name of the follower in the relationship
+         * @param {string[]} followed - The name of the followed in the relationship 
+         */
+
+        constructor(follower, followed) {
+            this.follower = follower;
+            this.followed = followed;
+        }
+
+        /**
+         * This methods runs through all the relationships followers and followed properties and 
+         * gets the users from them
+         * @param {Relationship[]} relationships - A list of relationships
+         * @return {string[]} List of all the names of  users 
+         */
+
+        static getUsersFromRelationships(relationships) {
+
+            var followers = getFollowersFromRelationships(relationships);
+            var followed = getFollowedFromRelationships(relationships);
+
+            var users = _.union(followers, followed);
+            users = _.flatten(users);
+            users = _.uniq(users).sort();
+
+            return users;
+        }
+
+        /**
+         * This methods runs through all the relationships followers and check if there is a follower of the same name,
+         * if so, update the followed array and ensure that array has distinct members
+         * @param {Relationship[]} relationships - A list of relationships
+         * @param {Relationship} relationship - The relationship to update or create
+         * @return {Relationship[]} A update list of relationships 
+         */
+
+        static findAndUpdateRelationship(relationships, relationship) {
+
+            var indexOfFollower = relationships.findIndex((item) => {
+                return relationship.follower === item.follower;
+            });
+
+            if (indexOfFollower !== -1) {
+
+                var uniqueFollowed = _.union(relationships[indexOfFollower].followed, relationship.followed);
+                relationships[indexOfFollower].followed = uniqueFollowed;
+
+            }
+            else {
+                relationships.push(new Relationship(relationship.follower, relationship.followed));
+            }
+
+        }
+
+
+        /**
+         * This method populates relationships from file response
+         * @param {fileName} fileName - The name of file containing relationship information
+         * @return {Relationship[]} List of relationships
+         */
+
+        static populateRelationships(fileName) {
+
+            var relationships = [];
+
+            var relationshipsFromFile = fetchRelationships(fileName);
+
+            if (relationshipsFromFile) {
+                var filteredRelationships = relationshipsFromFile.split('\r\n').filter(Boolean);
+
+                filteredRelationships.forEach((user) => {
+                    var result = utils.extractRelationship(user);
+
+                    if (result) {
+
+                        var follower = result[1];
+                        var followed = result[2].split(/,\s+/);
+
+                        var relationship = new Relationship(follower, followed);
+                        this.findAndUpdateRelationship(relationships, relationship);
+                    }
+                });
+            }
+
+            return relationships;
+
+        }
+
+    }
+
+    /**
+     * Relationship
+     * @module Relationship
+     */
+
+    module.exports = {
+        Relationship
+    }
+})();
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-Logger.html">Logger</a></li><li><a href="module-Relationship.html">Relationship</a></li><li><a href="module-Tweet.html">Tweet</a></li><li><a href="module-utils.html">utils</a></li></ul><h3>Classes</h3><ul><li><a href="Relationship.html">Relationship</a></li><li><a href="Tweet.html">Tweet</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Fri Feb 10 2017 08:06:24 GMT+0200 (SAST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
