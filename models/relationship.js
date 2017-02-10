@@ -1,6 +1,9 @@
 
 /**
  * @author: Garth Whitaker <garth.whitaker@gmail.com>
+ * NOTES:
+ * I have not done any unique user checking not case-sensitive checking has been put in place. It was assumed
+ * that each user i.e.(follower/followed) would be unique
  */
 
 (function () {

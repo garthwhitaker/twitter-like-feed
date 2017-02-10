@@ -1,6 +1,6 @@
 /**
  * @author: Garth Whitaker <garth.whitaker@gmail.com>
- * @description: Entry point of twitter like feed application 
+ * @description: Entry point of twitter like feed application
  */
 
 (function () {
