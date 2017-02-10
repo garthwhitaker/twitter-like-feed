@@ -216,7 +216,7 @@
     }
 
     /**
-     * Relationship
+     * A module that exports Relationship class functionality 
      * @module Relationship
      */
 

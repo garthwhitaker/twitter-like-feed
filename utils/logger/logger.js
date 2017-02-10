@@ -18,7 +18,8 @@
     });
 
     /**
-    * Logger
+    * A module that exports logging functionality for auditing purposes and easy troubleshooting when application 
+    * is running in production environment
     * @module Logger
     */
 

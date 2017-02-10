@@ -202,7 +202,7 @@
     }
 
     /**
-    * Tweet
+    * A module that exports Tweet class functionality 
     * @module Tweet
     */
 

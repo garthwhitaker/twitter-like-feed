@@ -74,7 +74,7 @@
     }
 
     /**
-     * utils
+     * A module exports utilty functions for use within the application i.e. file access, string manipulation, displaying text
      * @module utils
      */
 
